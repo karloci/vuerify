@@ -1,40 +1,49 @@
-import Validator from "./validator.ts";
+import { reactive } from "vue";
 
-type FormValue<T> = {
-    value: T | null;
-    required(): FormValue<T>;
-    email(): FormValue<T>;
-    min(length: number): FormValue<T>;
-    // Add more validation methods as needed
-};
+interface FormFields {
+    [key: string]: any;
+}
 
-type FormObject<T> = {
-    [K in keyof T]: FormValue<T[K]>;
-};
+class Form {
+    private form: FormFields;
+    private url: string;
+    private method: string;
 
-type Form<T> = {
-    [K in keyof T]: T[K];
-};
+    // Add an index signature to allow dynamic property assignment
+    [key: string]: any;
 
-export function use<T>(formObject: FormObject<T>): Form<T> {
-    // Logic to handle the form object and set up the form
-    const form: Form<T> = {} as Form<T>;
-
-    for (const key in formObject) {
-        if (Object.prototype.hasOwnProperty.call(formObject, key)) {
-            const formValue = formObject[key];
-
-            Object.defineProperty(form, key, {
-                get() {
-                    return formValue.value;
-                },
-            });
-        }
+    constructor() {
+        this.form = reactive({});
+        this.url = "";
+        this.method = "post";
     }
 
-    return form;
+    makeForm(fields: FormFields): this {
+        this.form = { ...this.form, ...fields };
+
+        for (const key in fields) {
+            // Check if the property is an own property of the object (not from the prototype chain)
+            if (fields.hasOwnProperty(key)) {
+                // Assign the property to the class instance
+                this[key] = fields[key];
+            }
+        }
+
+        return this;
+    }
+
+    setMethod(method: string): this {
+        this.method = method.toLowerCase();
+        return this;
+    }
+
+    getForm(): FormFields {
+        return this.form;
+    }
+
+    submit(): void {
+        console.log(this.getForm());
+    }
 }
 
-export function input<T>(): Validator {
-    return new Validator();
-}
+export const vuerify = new Form();
