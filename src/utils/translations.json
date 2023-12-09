@@ -1,0 +1,4 @@
+{
+  "required": "The :attr is required!",
+  "nullable": "The :attr is nullable!"
+}

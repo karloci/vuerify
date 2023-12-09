@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import {globals} from "../utils/globals.ts";
 
-const apiUrl = ref(globals.host || 'defaultFallbackValue');
+const apiUrl = ref(globals.host || '');
 
 onMounted(() => {
     console.log('Component mounted!');
