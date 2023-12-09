@@ -1,14 +1,19 @@
+interface ValidationRule {
+    rule: (value: any) => boolean;
+    errorMessage: string;
+}
+
 export class FormField {
     attribute: string;
     value: any;
     errors: string[];
-    private isRequired = false;
-    private isNullable = false;
+    private readonly validationRules: ValidationRule[];
 
     constructor() {
         this.attribute = "";
         this.value = null;
         this.errors = [];
+        this.validationRules = [];
     }
 
     attributeName(attribute: string){
@@ -22,12 +27,28 @@ export class FormField {
     }
 
     required(): this {
-        this.isRequired = true;
+        this.validationRules.push({
+            rule: (value) => value !== null && value !== undefined && value !== "",
+            errorMessage: "This field is required.",
+        });
         return this;
     }
 
     nullable(): this {
-        this.isNullable = true;
         return this;
+    }
+
+    customRule(rule: ValidationRule): this {
+        this.validationRules.push(rule);
+        return this;
+    }
+
+    validate(): void {
+        this.errors = [];
+        for (const rule of this.validationRules) {
+            if (!rule.rule(this.value)) {
+                this.errors.push(rule.errorMessage);
+            }
+        }
     }
 }

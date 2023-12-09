@@ -1,4 +1,5 @@
 import {FormField} from "./formField.ts";
+import {reactive} from "vue";
 
 interface DynamicObject {
     [key: string]: any;
@@ -14,6 +15,16 @@ class Form {
         this.formUrl = "";
         this.formMethod = "get";
         this.fields = [];
+    }
+
+    setUrl(url: string): this {
+        this.formUrl = url.toLowerCase();
+        return this;
+    }
+
+    setMethod(method: string): this {
+        this.formMethod = method.toLowerCase();
+        return this;
     }
 
     makeForm(data: DynamicObject): this {
@@ -32,24 +43,37 @@ class Form {
         return new FormField();
     }
 
-    setMethod(method: string): this {
-        this.formMethod = method.toLowerCase();
-        return this;
-    }
-
     getFields(): DynamicObject {
         const result: DynamicObject = {};
         this.fields.forEach((key: string) => {
             if (this[key] instanceof FormField) {
-                result[key] = this[key].value;
+                result[key] = this[key];
             }
         });
         return result;
     }
 
+    validate(): boolean {
+        let isValid = true;
+        this.fields.forEach((key: string) => {
+            if (this[key] instanceof FormField) {
+                this[key].validate();
+                if (this[key].errors.length > 0) {
+                    isValid = false;
+                }
+            }
+        });
+        return isValid;
+    }
+
     submit(): void {
+        if (this.validate()) {
+            console.log(this.getFields());
+        } else {
+            console.log("Form validation failed.");
+        }
         console.log(this.getFields());
     }
 }
 
-export const form = new Form();
+export const form = reactive(new Form());

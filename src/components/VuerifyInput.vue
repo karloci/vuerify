@@ -7,8 +7,6 @@ defineProps<{
     field: FormField;
 }>();
 
-defineEmits(['update:modelValue']);
-
 const input = ref<HTMLInputElement | null>(null);
 
 onMounted(() => {
@@ -18,20 +16,20 @@ onMounted(() => {
 });
 
 defineExpose({focus: () => input.value?.focus()});
+
+defineOptions({
+    inheritAttrs: false
+});
 </script>
 
 <template>
     <div class="field">
         <input v-bind="{ ...$attrs }"
-               spellcheck="false"
-               autocomplete="off"
-               class="input"
-               :class="{ 'error': field.errors?.length > 0 }"
                :type="type ?? 'text'"
+               :class="{ 'invalid-input': field.errors?.length > 0 }"
                v-model="field.value"
-               @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
                ref="input"/>
-        <div class="input-error" v-if="field.errors?.length > 0">{{ field.errors }}</div>
+        <div class="input-errors" v-if="field.errors?.length > 0">{{ field.errors }}</div>
     </div>
 </template>
 
