@@ -2,6 +2,7 @@ import {reactive} from "vue";
 import FormField from "./formField.ts";
 import StringValidator from "../validation/stringValidator.ts";
 import BaseValidator from "../validation/baseValidator.ts";
+import IntegerValidator from "../validation/integerValidator.ts";
 
 interface DynamicObject {
     [key: string]: any;
@@ -45,6 +46,10 @@ class Form {
 
     string(attribute?: string): StringValidator {
         return new StringValidator(attribute);
+    }
+
+    integer(attribute?: string): IntegerValidator {
+        return new IntegerValidator(attribute);
     }
 
     getFields(): DynamicObject {

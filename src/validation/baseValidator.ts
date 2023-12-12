@@ -3,8 +3,11 @@ import FormField, {ValidationRule} from "../utils/formField.ts";
 class BaseValidator extends FormField {
     protected isNullable: boolean;
 
-    constructor() {
+    constructor(attribute?: string) {
         super();
+        if(attribute){
+            this.attribute = attribute;
+        }
         this.isNullable = false;
     }
 

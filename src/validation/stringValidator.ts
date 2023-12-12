@@ -2,10 +2,7 @@ import BaseValidator from "./baseValidator.ts";
 
 class StringValidator extends BaseValidator {
     constructor(attribute?: string) {
-        super();
-        if(attribute){
-            this.attribute = attribute;
-        }
+        super(attribute);
         if(!this.isNullable){
             this.value = "";
         }
@@ -19,6 +16,14 @@ class StringValidator extends BaseValidator {
         this.validationRules.push({
             rule: (value: any) => value !== null && value !== undefined && value !== "",
             errorMessage: "This field is required.",
+        });
+        return this;
+    }
+
+    equals(otherValue: string): this {
+        this.validationRules.push({
+            rule: (value: string) => value === otherValue,
+            errorMessage: `Value must be equal to "${otherValue}".`,
         });
         return this;
     }
@@ -51,14 +56,6 @@ class StringValidator extends BaseValidator {
         this.validationRules.push({
             rule: (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
             errorMessage: 'Invalid email format.',
-        });
-        return this;
-    }
-
-    equals(otherValue: string): this {
-        this.validationRules.push({
-            rule: (value: string) => value === otherValue,
-            errorMessage: `Value must be equal to "${otherValue}".`,
         });
         return this;
     }
