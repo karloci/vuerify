@@ -1,5 +1,6 @@
-import {FormField} from "./formField.ts";
 import {reactive} from "vue";
+import FormField from "./formField.ts";
+import StringValidator from "../validation/stringValidator.ts";
 
 interface DynamicObject {
     [key: string]: any;
@@ -39,8 +40,8 @@ class Form {
         return this;
     }
 
-    input(): FormField {
-        return new FormField();
+    string(): StringValidator {
+        return new StringValidator();
     }
 
     getFields(): DynamicObject {

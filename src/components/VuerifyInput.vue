@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
-import {FormField} from "../utils/formField.ts";
+import FormField from "../utils/formField.ts";
 
 defineProps<{
     type?: string | undefined,
@@ -23,7 +23,7 @@ defineOptions({
 </script>
 
 <template>
-    <div class="field">
+    <div class="field-holder">
         <input v-bind="{ ...$attrs }"
                :type="type ?? 'text'"
                :class="{ 'invalid-input': field.errors?.length > 0 }"
