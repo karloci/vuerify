@@ -1,13 +1,13 @@
 import BaseValidator from "./baseValidator.ts";
 
 class IntegerValidator extends BaseValidator {
-    constructor() {
-        super();
-        if(!this.isNullable){
-            this.value = "";
-        }
+    constructor(attribute?: string) {
+        super(attribute);
         this.validationRules.push({
-            rule: (value: any) => typeof value === 'number' && Number.isInteger(value),
+            rule: (value: any) => {
+                const intValue = parseInt(value, 10);
+                return !isNaN(intValue) && Number.isInteger(intValue) && value.trim() === intValue.toString();
+            },
             errorMessage: 'Value must be an integer.',
         });
     }
