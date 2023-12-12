@@ -1,4 +1,80 @@
 {
-  "required": "The :attr is required!",
-  "nullable": "The :attr is nullable!"
+  "accepted": "The :attribute field must be accepted.",
+  "after": "The :attribute field must be a date after :date.",
+  "array": "The :attribute field must be an array.",
+  "before": "The :attribute field must be a date before :date.",
+  "between": {
+    "array": "The :attribute field must have between :min and :max items.",
+    "file": "The :attribute field must be between :min and :max kilobytes.",
+    "numeric": "The :attribute field must be between :min and :max.",
+    "string": "The :attribute field must be between :min and :max characters."
+  },
+  "boolean": "The :attribute field must be true or false.",
+  "date": "The :attribute field must be a valid date.",
+  "date_format": "The :attribute field must match the format :format.",
+  "decimal": "The :attribute field must have :decimal decimal places.",
+  "declined": "The :attribute field must be declined.",
+  "different": "The :attribute field and :other must be different.",
+  "digits": "The :attribute field must be :digits digits.",
+  "digits_between": "The :attribute field must be between :min and :max digits.",
+  "distinct": "The :attribute field has a duplicate value.",
+  "doesnt_end_with": "The :attribute field must not end with one of the following: :values.",
+  "doesnt_start_with": "The :attribute field must not start with one of the following: :values.",
+  "email": "The :attribute field must be a valid email address.",
+  "ends_with": "The :attribute field must end with one of the following: :values.",
+  "enum": "The selected :attribute is invalid.",
+  "equals": {
+    "array": "The :attribute field must have between :min and :max items.",
+    "file": "The :attribute field must be between :min and :max kilobytes.",
+    "numeric": "The :attribute field must be between :min and :max.",
+    "string": "The :attribute field must be between :min and :max characters."
+  },
+  "file": "The :attribute field must be a file.",
+  "gt": {
+    "array": "The :attribute field must have more than :value items.",
+    "file": "The :attribute field must be greater than :value kilobytes.",
+    "numeric": "The :attribute field must be greater than :value.",
+    "string": "The :attribute field must be greater than :value characters."
+  },
+  "gte": {
+    "array": "The :attribute field must have :value items or more.",
+    "file": "The :attribute field must be greater than or equal to :value kilobytes.",
+    "numeric": "The :attribute field must be greater than or equal to :value.",
+    "string": "The :attribute field must be greater than or equal to :value characters."
+  },
+  "in": "The selected :attribute is invalid.",
+  "in_array": "The :attribute field must exist in :other.",
+  "integer": "The :attribute field must be an integer.",
+  "lt": {
+    "array": "The :attribute field must have less than :value items.",
+    "file": "The :attribute field must be less than :value kilobytes.",
+    "numeric": "The :attribute field must be less than :value.",
+    "string": "The :attribute field must be less than :value characters."
+  },
+  "lte": {
+    "array": "The :attribute field must not have more than :value items.",
+    "file": "The :attribute field must be less than or equal to :value kilobytes.",
+    "numeric": "The :attribute field must be less than or equal to :value.",
+    "string": "The :attribute field must be less than or equal to :value characters."
+  },
+  "max": {
+    "array": "The :attribute field must not have more than :max items.",
+    "file": "The :attribute field must not be greater than :max kilobytes.",
+    "numeric": "The :attribute field must not be greater than :max.",
+    "string": "The :attribute field must not be greater than :max characters."
+  },
+  "max_digits": "The :attribute field must not have more than :max digits.",
+  "min": {
+    "array": "The :attribute field must have at least :min items.",
+    "file": "The :attribute field must be at least :min kilobytes.",
+    "numeric": "The :attribute field must be at least :min.",
+    "string": "The :attribute field must be at least :min characters."
+  },
+  "min_digits": "The :attribute field must have at least :min digits.",
+  "not_in": "The selected :attribute is invalid.",
+  "numeric": "The :attribute field must be a number.",
+  "required": "The :attribute field is required.",
+  "same": "The :attribute field must match :other.",
+  "starts_with": "The :attribute field must start with one of the following: :values.",
+  "string": "The :attribute field must be a string."
 }
