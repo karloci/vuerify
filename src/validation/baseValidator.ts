@@ -1,21 +1,15 @@
 import FormField, {ValidationRule} from "../utils/formField.ts";
 
 class BaseValidator extends FormField {
+    protected isNullable: boolean;
+
     constructor() {
         super();
-        this.attribute = "";
-        this.value = null;
-        this.errors = [];
-        this.validationRules = [];
+        this.isNullable = false;
     }
 
-    withValue(value: any): this {
-        this.value = value;
-        return this;
-    }
-
-    attributeName(attribute: string){
-        this.attribute = attribute;
+    nullable(): this {
+        this.isNullable = true;
         return this;
     }
 
@@ -24,7 +18,7 @@ class BaseValidator extends FormField {
         return this;
     }
 
-    validate(): void {
+    private validate(): void {
         this.errors = [];
         this.validationRules.forEach((rule) => {
             if (!rule.rule(this.value)) {

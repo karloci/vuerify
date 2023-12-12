@@ -2,10 +2,10 @@
   "name": "vuerify",
   "private": false,
   "version": "1.0.0",
-  "description": "Vuerify is a package that enables simple and secure form validation in Vue3\n",
+  "description": "Vuerify is a package that enables simple, customizable and secure form validation in Vue3",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/karloci/vuerify.git"
+    "url": "https://github.com/karloci/vuerify.git"
   },
   "keywords": [
     "vuerify"

@@ -29,7 +29,7 @@ defineOptions({
                :class="{ 'invalid-input': field.errors?.length > 0 }"
                v-model="field.value"
                ref="input"/>
-        <div class="input-errors" v-if="field.errors?.length > 0">{{ field.errors }}</div>
+        <div class="invalid-message" v-if="field.errors?.length > 0">{{ field.errors }}</div>
     </div>
 </template>
 

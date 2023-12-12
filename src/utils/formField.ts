@@ -6,14 +6,19 @@ export interface ValidationRule {
 class FormField {
     public value: any;
     public errors: string[];
-    protected attribute: string;
+    protected attribute: string|null;
     protected validationRules: ValidationRule[];
 
     constructor() {
-        this.attribute = "";
+        this.attribute = null;
         this.value = null;
         this.errors = [];
         this.validationRules = [];
+    }
+
+    withValue(value: any): this {
+        this.value = value;
+        return this;
     }
 }
 

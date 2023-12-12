@@ -1,6 +1,7 @@
 import {reactive} from "vue";
 import FormField from "./formField.ts";
 import StringValidator from "../validation/stringValidator.ts";
+import BaseValidator from "../validation/baseValidator.ts";
 
 interface DynamicObject {
     [key: string]: any;
@@ -33,15 +34,17 @@ class Form {
             if (data.hasOwnProperty(key) && data[key] instanceof FormField) {
                 this.fields.push(key);
                 this[key] = data[key] as FormField;
-                this[key].attributeName(key);
+                if(this[key].attribute === null){
+                    this[key].attribute = key;
+                }
             }
         }
 
         return this;
     }
 
-    string(): StringValidator {
-        return new StringValidator();
+    string(attribute?: string): StringValidator {
+        return new StringValidator(attribute);
     }
 
     getFields(): DynamicObject {
@@ -57,7 +60,7 @@ class Form {
     validate(): boolean {
         let isValid = true;
         this.fields.forEach((key: string) => {
-            if (this[key] instanceof FormField) {
+            if (this[key] instanceof BaseValidator) {
                 this[key].validate();
                 if (this[key].errors.length > 0) {
                     isValid = false;
@@ -73,7 +76,6 @@ class Form {
         } else {
             console.log("Form validation failed.");
         }
-        console.log(this.getFields());
     }
 }
 
