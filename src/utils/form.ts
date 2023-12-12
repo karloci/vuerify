@@ -12,6 +12,7 @@ class Form {
     private formUrl: string;
     private formMethod: string;
     private readonly fields: string[];
+
     [key: string]: any;
 
     constructor() {
@@ -35,9 +36,6 @@ class Form {
             if (data.hasOwnProperty(key) && data[key] instanceof FormField) {
                 this.fields.push(key);
                 this[key] = data[key] as FormField;
-                if(this[key].attribute === null){
-                    this[key].attribute = key;
-                }
             }
         }
 
@@ -45,11 +43,11 @@ class Form {
     }
 
     string(attribute?: string): StringValidator {
-        return new StringValidator(attribute);
+        return new StringValidator(this, attribute);
     }
 
     integer(attribute?: string): IntegerValidator {
-        return new IntegerValidator(attribute);
+        return new IntegerValidator(this, attribute);
     }
 
     getFields(): DynamicObject {
@@ -83,5 +81,7 @@ class Form {
         }
     }
 }
+
+export default Form;
 
 export const form = reactive(new Form());

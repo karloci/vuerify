@@ -1,8 +1,9 @@
 import BaseValidator from "./baseValidator.ts";
+import Form from "../utils/form.ts";
 
 class IntegerValidator extends BaseValidator {
-    constructor(attribute?: string) {
-        super(attribute);
+    constructor(form: Form, attribute: string = "") {
+        super(form, attribute);
         this.validationRules.push({
             rule: (value: any) => {
                 const intValue = parseInt(value, 10);

@@ -1,18 +1,27 @@
 import FormField, {ValidationRule} from "../utils/formField.ts";
+import Form from "../utils/form.ts";
+import {nextTick} from "vue";
 
 class BaseValidator extends FormField {
     protected isNullable: boolean;
 
-    constructor(attribute?: string) {
-        super();
-        if(attribute){
-            this.attribute = attribute;
-        }
+    constructor(form: Form, attribute: string = "") {
+        super(form, attribute);
         this.isNullable = false;
     }
 
     nullable(): this {
         this.isNullable = true;
+        return this;
+    }
+
+    equalsToField(otherValue: string): this {
+        nextTick(() => {
+            this.validationRules.push({
+                rule: (value: string) => value === (this.form[otherValue] as FormField).value,
+                errorMessage: `Value must be equal to "${(this.form[otherValue] as FormField).attribute}".`,
+            });
+        });
         return this;
     }
 

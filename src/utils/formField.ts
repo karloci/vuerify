@@ -1,19 +1,21 @@
+import Form from "./form.ts";
+import {toRaw} from "vue";
+
 export interface ValidationRule {
     rule: (value: any) => boolean;
     errorMessage: string;
 }
 
 class FormField {
-    public value: any;
-    public errors: string[];
-    protected attribute: string|null;
-    protected validationRules: ValidationRule[];
+    public form: Form = new Form();
+    public value: any = null;
+    public errors: string[] = [];
+    public attribute: string = "";
+    protected validationRules: ValidationRule[] = [];
 
-    constructor() {
-        this.attribute = null;
-        this.value = null;
-        this.errors = [];
-        this.validationRules = [];
+    constructor(form: Form, attribute: string = "") {
+        this.form = toRaw(form);
+        this.attribute = attribute;
     }
 
     withValue(value: any): this {

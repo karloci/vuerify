@@ -1,15 +1,15 @@
 import BaseValidator from "./baseValidator.ts";
+import Form from "../utils/form.ts";
 
 class StringValidator extends BaseValidator {
-    constructor(attribute?: string) {
-        super(attribute);
-        if(!this.isNullable){
-            this.value = "";
+    constructor(form: Form, attribute: string = "") {
+        super(form, attribute);
+        if (this.isNullable && this.value !== null) {
+            this.validationRules.push({
+                rule: (value) => typeof value === 'string',
+                errorMessage: 'Value must be a string.',
+            });
         }
-        this.validationRules.push({
-            rule: (value) => typeof value === 'string',
-            errorMessage: 'Value must be a string.',
-        });
     }
 
     required(): this {
