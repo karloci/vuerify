@@ -1,6 +1,5 @@
 import FormField, {ValidationRule} from "../utils/formField.ts";
 import Form from "../utils/form.ts";
-import {nextTick} from "vue";
 
 class BaseValidator extends FormField {
     protected isNullable: boolean;
@@ -15,13 +14,21 @@ class BaseValidator extends FormField {
         return this;
     }
 
-    equalsToField(otherValue: string): this {
-        nextTick(() => {
-            this.validationRules.push({
-                rule: (value: string) => value === (this.form[otherValue] as FormField).value,
-                errorMessage: `Value must be equal to "${(this.form[otherValue] as FormField).attribute}".`,
-            });
+    equals(otherValue: any): this {
+        this.validationRules.push({
+            rule: (value: any) => value === otherValue,
+            errorMessage: `Value must be equal to "${otherValue}".`,
         });
+        return this;
+    }
+
+    equalsToField(otherField: string): this {
+        setTimeout(() => {
+            this.validationRules.push({
+                rule: (value: any) => value === (this.form[otherField] as FormField).value,
+                errorMessage: `Value must be equal to field "${(this.form[otherField] as FormField).attribute}".`,
+            });
+        }, 0);
         return this;
     }
 

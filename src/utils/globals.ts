@@ -1,4 +1,4 @@
-import * as defaultTranslations from './translations.json';
+import * as defaultTranslations from '../localization/translations.json';
 
 interface Translations {
     [key: string]: string | Translations[] | any;
@@ -6,18 +6,13 @@ interface Translations {
 
 export const globals = {
     host: "",
-    locale: "en",
     translations: defaultTranslations as Translations
 };
 
-export function setHost(host: string ) {
+export function setHost(host: string) {
     globals.host = host;
 }
 
-export function setLocale(locale: string ) {
-    globals.locale = locale;
-}
-
-export function setTranslations(translations: Translations) {
+export function useTranslations(translations: Translations) {
     globals.translations = translations;
 }

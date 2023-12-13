@@ -1,5 +1,6 @@
 import BaseValidator from "./baseValidator.ts";
 import Form from "../utils/form.ts";
+import Translator from "../localization/translator.ts";
 
 class IntegerValidator extends BaseValidator {
     constructor(form: Form, attribute: string = "") {
@@ -7,24 +8,16 @@ class IntegerValidator extends BaseValidator {
         this.validationRules.push({
             rule: (value: any) => {
                 const intValue = parseInt(value, 10);
-                return !isNaN(intValue) && Number.isInteger(intValue) && value.trim() === intValue.toString();
+                return !isNaN(intValue) && Number.isInteger(intValue) && value?.trim() === intValue.toString();
             },
-            errorMessage: 'Value must be an integer.',
+            errorMessage: Translator.translate("integer", {attribute: this.attribute}),
         });
     }
 
     required(): this {
         this.validationRules.push({
             rule: (value: any) => value !== null && value !== undefined,
-            errorMessage: "This field is required.",
-        });
-        return this;
-    }
-
-    equals(compareValue: number): this {
-        this.validationRules.push({
-            rule: (value: number) => value === compareValue,
-            errorMessage: `Value must be equal to ${compareValue}.`,
+            errorMessage: Translator.translate("required", {attribute: this.attribute}),
         });
         return this;
     }
@@ -32,7 +25,7 @@ class IntegerValidator extends BaseValidator {
     min(minValue: number): this {
         this.validationRules.push({
             rule: (value: number) => value >= minValue,
-            errorMessage: `Value must be greater than or equal to ${minValue}.`,
+            errorMessage: Translator.translate("min.string", {attribute: this.attribute, min: minValue}),
         });
         return this;
     }
@@ -40,7 +33,7 @@ class IntegerValidator extends BaseValidator {
     max(maxValue: number): this {
         this.validationRules.push({
             rule: (value: number) => value <= maxValue,
-            errorMessage: `Value must be less than or equal to ${maxValue}.`,
+            errorMessage: Translator.translate("max.string", {attribute: this.attribute, max: maxValue}),
         });
         return this;
     }
@@ -48,7 +41,7 @@ class IntegerValidator extends BaseValidator {
     greaterThan(threshold: number): this {
         this.validationRules.push({
             rule: (value: number) => value > threshold,
-            errorMessage: `Value must be greater than ${threshold}.`,
+            errorMessage: Translator.translate("gt.numeric", {attribute: this.attribute, max: threshold}),
         });
         return this;
     }
@@ -56,15 +49,7 @@ class IntegerValidator extends BaseValidator {
     lessThan(threshold: number): this {
         this.validationRules.push({
             rule: (value: number) => value < threshold,
-            errorMessage: `Value must be less than ${threshold}.`,
-        });
-        return this;
-    }
-
-    nonZero(): this {
-        this.validationRules.push({
-            rule: (value: number) => value !== 0,
-            errorMessage: 'Value must be non-zero.',
+            errorMessage: Translator.translate("lt.numeric", {attribute: this.attribute, max: threshold}),
         });
         return this;
     }
@@ -72,23 +57,27 @@ class IntegerValidator extends BaseValidator {
     between(minValue: number, maxValue: number): this {
         this.validationRules.push({
             rule: (value: number) => value >= minValue && value <= maxValue,
-            errorMessage: `Value must be between ${minValue} and ${maxValue}.`,
+            errorMessage: Translator.translate("between.numeric", {
+                attribute: this.attribute,
+                min: minValue,
+                max: maxValue
+            }),
         });
         return this;
     }
 
     minDigits(minDigits: number): this {
         this.validationRules.push({
-            rule: (value: number) => value.toString().length >= minDigits,
-            errorMessage: `Value must have at least ${minDigits} digits.`,
+            rule: (value: number) => value?.toString().length >= minDigits,
+            errorMessage: Translator.translate("min_digits", {attribute: this.attribute, min: minDigits}),
         });
         return this;
     }
 
     maxDigits(maxDigits: number): this {
         this.validationRules.push({
-            rule: (value: number) => value.toString().length <= maxDigits,
-            errorMessage: `Value must have at most ${maxDigits} digits.`,
+            rule: (value: number) => value?.toString().length <= maxDigits,
+            errorMessage: Translator.translate("max_digits", {attribute: this.attribute, max: maxDigits}),
         });
         return this;
     }
