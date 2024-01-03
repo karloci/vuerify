@@ -1,4 +1,4 @@
-import Form from "./form.ts";
+import Form from "./form";
 import {toRaw} from "vue";
 
 export interface ValidationRule {

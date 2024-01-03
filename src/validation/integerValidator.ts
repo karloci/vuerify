@@ -1,6 +1,6 @@
-import BaseValidator from "./baseValidator.ts";
-import Form from "../utils/form.ts";
-import Translator from "../localization/translator.ts";
+import BaseValidator from "./baseValidator";
+import Form from "../utils/form";
+import Translator from "../localization/translator";
 
 class IntegerValidator extends BaseValidator {
     constructor(form: Form, attribute: string = "") {

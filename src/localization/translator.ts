@@ -1,4 +1,4 @@
-import {globals} from "../utils/globals.ts";
+import {globals} from "../utils/globals";
 import * as defaultTranslations from '../localization/translations.json';
 
 interface Translations {

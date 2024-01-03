@@ -1,9 +1,9 @@
 import {reactive} from "vue";
-import FormField from "./formField.ts";
-import StringValidator from "../validation/stringValidator.ts";
-import BaseValidator from "../validation/baseValidator.ts";
-import IntegerValidator from "../validation/integerValidator.ts";
-import { globals } from "./globals.ts";
+import FormField from "./formField";
+import StringValidator from "../validation/stringValidator";
+import BaseValidator from "../validation/baseValidator";
+import IntegerValidator from "../validation/integerValidator";
+import { globals } from "./globals";
 
 interface DynamicObject {
     [key: string]: any;

@@ -1,5 +1,5 @@
-import FormField, {ValidationRule} from "../utils/formField.ts";
-import Form from "../utils/form.ts";
+import FormField, {ValidationRule} from "../utils/formField";
+import Form from "../utils/form";
 
 class BaseValidator extends FormField {
     protected isNullable: boolean;

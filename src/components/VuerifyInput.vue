@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
-import FormField from "../utils/formField.ts";
+import FormField from "../utils/formField";
 
 defineProps<{
     type?: string | undefined,
@@ -30,7 +30,7 @@ defineOptions({
                v-model="field.value"
                ref="input"/>
         <ul class="invalid-messages" v-if="field.errors?.length > 0">
-            <li v-for="error in field.errors">{{ error }}</li>
+            <li v-for="error in field.errors" :key="error">{{ error }}</li>
         </ul>
     </div>
 </template>
