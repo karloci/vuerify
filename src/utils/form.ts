@@ -3,11 +3,11 @@ import FormField from "./formField";
 import StringValidator from "../validation/stringValidator";
 import BaseValidator from "../validation/baseValidator";
 import IntegerValidator from "../validation/integerValidator";
-import { globals } from "./globals";
+import {globals} from "./globals";
 
 interface DynamicObject {
     [key: string]: any;
-} 
+}
 
 class Form {
     public processing: boolean = false;
@@ -85,12 +85,23 @@ class Form {
         return isValid;
     }
 
+    isValid() {
+        this.fields.forEach((key: string) => {
+            if (this[key] instanceof BaseValidator) {
+                if (this[key].hasErrors()) {
+                    return false;
+                }
+            }
+        });
+        return true;
+    }
+
     submit(): Promise<DynamicObject> {
         this.processing = true;
         return new Promise((resolve, reject) => {
             if (this.validate()) {
                 const url = globals.host + this.formUrl;
-        
+
                 fetch(url, {
                     method: this.formMethod,
                     headers: {
@@ -99,25 +110,27 @@ class Form {
                     credentials: 'include',
                     body: JSON.stringify(this.getValues()),
                 })
-                .then((response) => {
-                    if (response.ok) {
-                        resolve(response.json() as DynamicObject);
-                    } else {
-                        reject(new Error(`Failed to submit form. Status: ${response.status}`));
-                    }
-                })
-                .catch((error) => {
-                    reject(error);
-                }).finally(() => {
+                    .then((response) => {
+                        if (response.ok) {
+                            resolve(response.json() as DynamicObject);
+                        }
+                        else {
+                            reject(new Error(`Failed to submit form. Status: ${response.status}`));
+                        }
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    }).finally(() => {
                     this.processing = false;
                 });
-            } else {
+            }
+            else {
                 this.processing = false;
                 reject("Form validation failed.");
             }
         });
     }
-      
+
 }
 
 export default Form;

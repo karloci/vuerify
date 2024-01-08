@@ -22,6 +22,10 @@ class FormField {
         this.value = value;
         return this;
     }
+
+    hasErrors() {
+        return this.errors.length > 0;
+    }
 }
 
 export default FormField;
